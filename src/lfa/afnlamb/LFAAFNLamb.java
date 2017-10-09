@@ -15,9 +15,21 @@ import java.util.Scanner;
  * @author tulio
  */
 public class LFAAFNLamb {
+    public static class Arestas {
+        public String atual;
+        public String proximo;
+        public String consome;
+        
+        Arestas (String atual, String proximo, String consome){
+            this.atual = atual;
+            this.proximo = proximo;
+            this.consome = consome;
+        }
+        
+    }
     
-
-    public static boolean percorre (String[] vStates, String[] vAlphabet, HashMap<String, String> transitions, 
+    
+    public static boolean percorre (String[] vStates, String[] vAlphabet, ArrayList <Arestas> arestas, 
             String[] vInitialStates, String vFinalStates[], String word){
                 Scanner in = new Scanner(System.in);
 
@@ -43,7 +55,7 @@ public class LFAAFNLamb {
                     
                     // verify possibilits
                     if (!word.isEmpty()){
-                        next = transitions.get(current + word.charAt(0));
+                        next = arestas.get(current + word.charAt(0));
                         if (next == null)
                              next = transitions.get(current + "#");
 
@@ -117,8 +129,10 @@ public class LFAAFNLamb {
         //System.out.println(transations);
         String vTransitions[] = transitions.split("]");
 
-        // map of transations
-        HashMap<String, String> map = new HashMap<String, String>();
+        // array of transations
+        ArrayList <Arestas> arestas = new ArrayList<Arestas>();
+        
+        //HashMap<arestas, String> map = new HashMap<arestas, String>();
 
         // adding in map
         for (int i = 0; i < vTransitions.length; i++) {
@@ -128,7 +142,9 @@ public class LFAAFNLamb {
             }
 
             String vTransition[] = vTransitions[i].split(",");
-            map.put(vTransition[0] + vTransition[1], vTransition[2]);
+            Arestas a = new Arestas(vTransition[0], vTransition[1], vTransition[2]);
+            //map.put(vTransition[0] + vTransition[1], vTransition[2]);
+            arestas.add(a);
             System.out.println(vTransition[0] + " " + vTransition[1] + " " + vTransition[2]);
             //System.out.println(map.get(vTransition[0] +  vTransition[1]));
             //System.out.println(vTransations[i]);
@@ -149,7 +165,7 @@ public class LFAAFNLamb {
         }
         
         word = in.nextLine();
-        if (percorre(vStates, vAlphabet, map, vInitialStates, vFinalStates, word))
+        if (percorre(vStates, vAlphabet, arestas, vInitialStates, vFinalStates, word))
             System.out.println("Sim");
         else
             System.out.println("Não");
