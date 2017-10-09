@@ -42,7 +42,7 @@ public class Reader {
         for (int i = 0; i < v_states.length; i++) {
             v_states[i] = v_states[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_states.add(v_states[i]);
-            //System.out.println(v_states[i]);
+            System.out.println("Estados list: " + v_states[i]);
         }
     }
     
@@ -52,27 +52,27 @@ public class Reader {
         for (int i = 0; i < v_alphabets.length; i++) {
             v_alphabets[i] = v_alphabets[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_alphabet.add(v_alphabets[i]);
-            //System.out.println(v_alphabets[i]);
+            System.out.println("Alfabeto: " + v_alphabets[i]);
         }
     }
     
     public void ReadTransition (){
         String v_allTransition = this.m_ja.get(2).toString();
         String v_transitions[] = v_allTransition.split("]");
-        
+        Estado ini, fim;
         HashMap<Aresta, String> map = new HashMap<Aresta, String>();
-
         // adding in map
         for (int i = 0; i < v_transitions.length; i++) {
             v_transitions[i] = v_transitions[i].replace("\"", "").replace("[", "").replace("]", "");
             if (v_transitions[i].charAt(0) == ',') {
                 v_transitions[i] = v_transitions[i].replaceFirst(",", "");
             }
-
             String transition[] = v_transitions[i].split(",");
-            Aresta a = new Aresta(transition[0], transition[1], transition[2]);
+            ini = new Estado(transition[0], "");
+            fim = new Estado(transition[1], "");
+            Aresta a = new Aresta(ini, transition[1], fim);
             //map.put(vTransition[0] + vTransition[1], vTransition[2]);
-            System.out.println(transition[0] + " " + transition[1] + " " + transition[2]);
+            System.out.println("Transição: " + a.getAtual().getNome() + " " + a.getConsome() + " " + a.getProximo().getNome());
             //System.out.println(map.get(vTransition[0] +  vTransition[1]));
             //System.out.println(vTransations[i]);
             this.m_transitions.add(a);
@@ -86,7 +86,7 @@ public class Reader {
         for (int i = 0; i < v_initialStates.length; i++) {
             v_initialStates[i] = v_initialStates[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_initialStates.add(v_initialStates[i]);
-            //System.out.println(vInitialStates[i]);
+            System.out.println("Estados iniciais:" + v_initialStates[i]);
         }
     }
     
@@ -96,7 +96,7 @@ public class Reader {
         for (int i = 0; i < v_finalStates.length; i++) {
             v_finalStates[i] = v_finalStates[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_finalStates.add(v_finalStates[i]);
-            //System.out.println(v_finalStates[i]);
+            System.out.println("Estados finais:" + v_finalStates[i]);
         }
     }
     
@@ -146,6 +146,22 @@ public class Reader {
 
     public void setTransitions(ArrayList <Aresta> transitions) {
         this.m_transitions = transitions;
+    }
+
+    public ArrayList<String> getInitialStates() {
+        return m_initialStates;
+    }
+
+    public void setInitialStates(ArrayList<String> m_initialStates) {
+        this.m_initialStates = m_initialStates;
+    }
+
+    public ArrayList<String> getFinalStates() {
+        return m_finalStates;
+    }
+
+    public void setFinalStates(ArrayList<String> m_finalStates) {
+        this.m_finalStates = m_finalStates;
     }
     
     
