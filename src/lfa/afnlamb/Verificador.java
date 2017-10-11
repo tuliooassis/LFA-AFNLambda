@@ -44,7 +44,7 @@ public class Verificador {
                     ArrayList<String> p_finalStates, ArrayList<Aresta> p_transitions, String word){
         Scanner in = new Scanner(System.in);
         Estado atual;
-
+       //Adicionas na pilha de controle todos os estados iniciais
         for (String s : p_initialStates) {
             atual = new Estado(s, word);
             if (!this.m_visited.contains(s)) {
@@ -52,32 +52,55 @@ public class Verificador {
             }
         }
 
-        while (!this.m_control.empty()) {
+        while (!this.m_control.empty()) { //Enquanto a pilha de controle nao for consumida permanece
+            
             atual = this.m_control.pop();
+            
+            //System.out.println ("Novo atual"+atual.getNome());
             this.m_visited.add(atual);
-
-            if (this.m_control.empty() && p_finalStates.contains(atual.getNome()))
-                return true;
+            
             
             for (Aresta a : p_transitions) {
+                if(word.equals("#"))
+                        if (p_finalStates.contains(a.getProximo().getNome()) || p_finalStates.contains(a.getAtual().getNome()))
+                            return true;
+                        else
+                            return false;
+                       
+                
+                 
+                
+                if (atual.getWord().isEmpty() && p_finalStates.contains(atual.getNome()))
+                    return true;
+                else if (atual.getWord().isEmpty())
+                    break; 
+                
+                if (a.getConsome().isEmpty())
+                    continue;
+                
                 if (a.getAtual().getNome().equals(atual.getNome())) {
-                    System.out.println(a.getAtual().getNome() + a.getConsome() + a.getProximo().getNome());
-                    if (a.getConsome().equals(atual.getWord().charAt(0) + "")) {
-                        System.out.print("entrou");
-                        
-                        if (!a.getConsome().equals("#") && atual.getWord().length() > 1)
-                            atual.setWord(atual.getWord().substring(1));
+                    if (a.getConsome().equals(atual.getWord().charAt(0) + "")||a.getConsome().equals("#")) {
+                     //   System.out.println("Atual"+a.getAtual().getNome() +" C="+ a.getConsome() +" P="+ a.getProximo().getNome());
+                        this.printVisited();
+                   //     System.out.println("Palavra:"+atual.getWord());
                         
                         Estado prox = new Estado (a.getProximo().getNome(), atual.getWord());
-                        if (!this.m_visited.contains(prox)){
-                            this.m_control.add(prox);
-                            in.nextLine();
+
+                        if (!a.getConsome().equals("#")){
+                            if (atual.getWord().length() == 1)
+                                prox.setWord("");
+                            else if (atual.getWord().length() > 1)
+                                prox.setWord(atual.getWord().substring(1));
                         }
                         
-                        this.printControl();
-                        this.printVisited();
+                        if (!this.m_visited.contains(prox)){
+                            this.m_control.add(prox);
+               //           in.nextLine();
+                        }
+                        
+                    //    this.printControl();
+                   //     this.printVisited();
                     }
-
                 }
             }
 

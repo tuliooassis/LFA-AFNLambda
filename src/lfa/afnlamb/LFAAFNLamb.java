@@ -14,7 +14,7 @@ public class LFAAFNLamb {
      */
     public static void main(String[] args) throws Exception {
         Reader reader;
-        Verificador v = new Verificador();
+        Verificador v;
         Scanner in = new Scanner(System.in);
         String file, word;
         boolean valido = false;
@@ -27,16 +27,18 @@ public class LFAAFNLamb {
         reader.ReadTransition();
         reader.ReadInitialStates();
         reader.ReadFinalStates();
+        do{
+            v = new Verificador();
+            word = in.nextLine();
 
-        word = in.nextLine();
+            valido = v.valida(reader.getStates(), reader.getAlphabet(), reader.getInitialStates(), reader.getFinalStates(), reader.getTransitions(), word);
 
-        valido = v.valida(reader.getStates(), reader.getAlphabet(), reader.getInitialStates(), reader.getFinalStates(), reader.getTransitions(), word);
-
-        if (valido) {
-            System.out.println("Sim");
-        } else {
-            System.out.println("Não");
-        }
+            if (valido) {
+                System.out.println("Sim");
+            } else {
+                System.out.println("Não");
+            }
+        }while(true);
 
     }
 
