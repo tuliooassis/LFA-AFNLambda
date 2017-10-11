@@ -8,7 +8,6 @@ package lfa.afnlamb;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Stack;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,15 +18,16 @@ import org.json.simple.parser.*;
  * @author tulio
  */
 public class Reader {
+
     private Object m_obj;
     private JSONObject m_jo;
     private JSONArray m_ja;
-    private ArrayList <String> m_states, m_alphabet, m_initialStates, m_finalStates;
-    private ArrayList <Aresta> m_transitions;
-    
-    public Reader(String p_file) throws Exception{
+    private ArrayList<String> m_states, m_alphabet, m_initialStates, m_finalStates;
+    private ArrayList<Aresta> m_transitions;
+
+    public Reader(String p_file) throws Exception {
         this.m_obj = new JSONParser().parse(new FileReader(p_file));        // parsing file "JSONExample.json"
-        this.m_jo =  (JSONObject) this.m_obj; // typecasting obj to JSONObject
+        this.m_jo = (JSONObject) this.m_obj; // typecasting obj to JSONObject
         this.m_ja = (JSONArray) this.m_jo.get("af"); // getting af
         this.m_states = new ArrayList();
         this.m_alphabet = new ArrayList();
@@ -35,8 +35,8 @@ public class Reader {
         this.m_finalStates = new ArrayList();
         this.m_transitions = new ArrayList();
     }
-    
-    public void ReadSates (){
+
+    public void ReadSates() {
         String v_state = this.m_ja.get(0).toString();
         String v_states[] = v_state.split(",");
         for (int i = 0; i < v_states.length; i++) {
@@ -45,8 +45,8 @@ public class Reader {
             System.out.println("Estados list: " + v_states[i]);
         }
     }
-    
-    public void ReadAlphabet (){
+
+    public void ReadAlphabet() {
         String v_alphabet = this.m_ja.get(1).toString();
         String v_alphabets[] = v_alphabet.split(",");
         for (int i = 0; i < v_alphabets.length; i++) {
@@ -55,8 +55,8 @@ public class Reader {
             System.out.println("Alfabeto: " + v_alphabets[i]);
         }
     }
-    
-    public void ReadTransition (){
+
+    public void ReadTransition() {
         String v_allTransition = this.m_ja.get(2).toString();
         String v_transitions[] = v_allTransition.split("]");
         Estado ini, fim;
@@ -69,7 +69,7 @@ public class Reader {
             }
             String transition[] = v_transitions[i].split(",");
             ini = new Estado(transition[0], "");
-            fim = new Estado(transition[1], "");
+            fim = new Estado(transition[2], "");
             Aresta a = new Aresta(ini, transition[1], fim);
             //map.put(vTransition[0] + vTransition[1], vTransition[2]);
             System.out.println("Transição: " + a.getAtual().getNome() + " " + a.getConsome() + " " + a.getProximo().getNome());
@@ -79,8 +79,8 @@ public class Reader {
         }
 
     }
-    
-    public void ReadInitialStates (){
+
+    public void ReadInitialStates() {
         String v_initialState = this.m_ja.get(3).toString();
         String v_initialStates[] = v_initialState.split(",");
         for (int i = 0; i < v_initialStates.length; i++) {
@@ -89,8 +89,8 @@ public class Reader {
             System.out.println("Estados iniciais:" + v_initialStates[i]);
         }
     }
-    
-    public void ReadFinalStates(){
+
+    public void ReadFinalStates() {
         String v_finalState = this.m_ja.get(4).toString();
         String v_finalStates[] = v_finalState.split(",");
         for (int i = 0; i < v_finalStates.length; i++) {
@@ -99,7 +99,7 @@ public class Reader {
             System.out.println("Estados finais:" + v_finalStates[i]);
         }
     }
-    
+
     public Object getObj() {
         return m_obj;
     }
@@ -124,27 +124,27 @@ public class Reader {
         this.m_ja = ja;
     }
 
-    public ArrayList <String> getStates() {
+    public ArrayList<String> getStates() {
         return m_states;
     }
 
-    public void setStates(ArrayList <String> states) {
+    public void setStates(ArrayList<String> states) {
         this.m_states = states;
     }
 
-    public ArrayList <String> getAlphabet() {
+    public ArrayList<String> getAlphabet() {
         return m_alphabet;
     }
 
-    public void setAlphabet(ArrayList <String> alphabet) {
+    public void setAlphabet(ArrayList<String> alphabet) {
         this.m_alphabet = alphabet;
     }
 
-    public ArrayList <Aresta> getTransitions() {
+    public ArrayList<Aresta> getTransitions() {
         return m_transitions;
     }
 
-    public void setTransitions(ArrayList <Aresta> transitions) {
+    public void setTransitions(ArrayList<Aresta> transitions) {
         this.m_transitions = transitions;
     }
 
@@ -163,6 +163,5 @@ public class Reader {
     public void setFinalStates(ArrayList<String> m_finalStates) {
         this.m_finalStates = m_finalStates;
     }
-    
-    
+
 }

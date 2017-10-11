@@ -10,6 +10,7 @@ package lfa.afnlamb;
  * @author aluno
  */
 public class Estado {
+
     private String nome;
     private String word;
 

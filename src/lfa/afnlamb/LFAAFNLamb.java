@@ -1,20 +1,13 @@
 package lfa.afnlamb;
 
-import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Stack;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
-
 import java.util.Scanner;
+
 /**
  *
  * @author tulio
  */
 public class LFAAFNLamb {
+
     /**
      * @param args the command line arguments
      * @throws java.lang.Exception
@@ -25,25 +18,26 @@ public class LFAAFNLamb {
         Scanner in = new Scanner(System.in);
         String file, word;
         boolean valido = false;
-        
+
         //file = in.nextLine();
-        reader = new Reader ("concat.txt");
-               
+        reader = new Reader("concat.txt");
+
         reader.ReadSates();
         reader.ReadAlphabet();
         reader.ReadTransition();
         reader.ReadInitialStates();
         reader.ReadFinalStates();
-        
+
         word = in.nextLine();
-        
+
         valido = v.valida(reader.getStates(), reader.getAlphabet(), reader.getInitialStates(), reader.getFinalStates(), reader.getTransitions(), word);
-        
-        if (valido)
+
+        if (valido) {
             System.out.println("Sim");
-        else
+        } else {
             System.out.println("Não");
-                    
+        }
+
     }
 
 }
