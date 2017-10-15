@@ -4,5 +4,4 @@ Trabalho realizado durante a matéria Linguagens	Formais	e	Autômatos com objeti
 
 
 Trabalho feito por:
-Túlio Assis
-Gabriel Melo
+Túlio Assis e Gabriel Melo
