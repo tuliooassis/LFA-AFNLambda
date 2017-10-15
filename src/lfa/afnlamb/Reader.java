@@ -26,9 +26,9 @@ public class Reader {
     private ArrayList<Aresta> m_transitions;
 
     public Reader(String p_file) throws Exception {
-        this.m_obj = new JSONParser().parse(new FileReader(p_file));        // parsing file "JSONExample.json"
-        this.m_jo = (JSONObject) this.m_obj; // typecasting obj to JSONObject
-        this.m_ja = (JSONArray) this.m_jo.get("af"); // getting af
+        this.m_obj = new JSONParser().parse(new FileReader(p_file));
+        this.m_jo = (JSONObject) this.m_obj;
+        this.m_ja = (JSONArray) this.m_jo.get("af");
         this.m_states = new ArrayList();
         this.m_alphabet = new ArrayList();
         this.m_initialStates = new ArrayList();
@@ -42,7 +42,7 @@ public class Reader {
         for (int i = 0; i < v_states.length; i++) {
             v_states[i] = v_states[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_states.add(v_states[i]);
-            System.out.println("Estados list: " + v_states[i]);
+            //System.out.println("Estados list: " + v_states[i]);
         }
     }
 
@@ -52,7 +52,7 @@ public class Reader {
         for (int i = 0; i < v_alphabets.length; i++) {
             v_alphabets[i] = v_alphabets[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_alphabet.add(v_alphabets[i]);
-            System.out.println("Alfabeto: " + v_alphabets[i]);
+            //System.out.println("Alfabeto: " + v_alphabets[i]);
         }
     }
 
@@ -71,10 +71,7 @@ public class Reader {
             ini = new Estado(transition[0], "");
             fim = new Estado(transition[2], "");
             Aresta a = new Aresta(ini, transition[1], fim);
-            //map.put(vTransition[0] + vTransition[1], vTransition[2]);
-            System.out.println("Transição: " + a.getAtual().getNome() + " " + a.getConsome() + " " + a.getProximo().getNome());
-            //System.out.println(map.get(vTransition[0] +  vTransition[1]));
-            //System.out.println(vTransations[i]);
+            //System.out.println("Transição: " + a.getAtual().getNome() + " " + a.getConsome() + " " + a.getProximo().getNome());
             this.m_transitions.add(a);
         }
 
@@ -86,7 +83,7 @@ public class Reader {
         for (int i = 0; i < v_initialStates.length; i++) {
             v_initialStates[i] = v_initialStates[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_initialStates.add(v_initialStates[i]);
-            System.out.println("Estados iniciais:" + v_initialStates[i]);
+            //System.out.println("Estados iniciais:" + v_initialStates[i]);
         }
     }
 
@@ -96,7 +93,7 @@ public class Reader {
         for (int i = 0; i < v_finalStates.length; i++) {
             v_finalStates[i] = v_finalStates[i].replace("\"", "").replace("[", "").replace("]", "");
             this.m_finalStates.add(v_finalStates[i]);
-            System.out.println("Estados finais:" + v_finalStates[i]);
+            //System.out.println("Estados finais:" + v_finalStates[i]);
         }
     }
 

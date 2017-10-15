@@ -16,21 +16,22 @@ public class LFAAFNLamb {
         Reader reader;
         Verificador v;
         Scanner in = new Scanner(System.in);
-        String file, word;
+        String word;
         boolean valido = false;
-
-        //file = in.nextLine();
-        reader = new Reader("concat.txt");
+        
+        reader = new Reader(args[0]);
 
         reader.ReadSates();
         reader.ReadAlphabet();
         reader.ReadTransition();
         reader.ReadInitialStates();
         reader.ReadFinalStates();
-        do{
+        
+        word = in.nextLine();
+        
+        while (!word.isEmpty()){
             v = new Verificador();
-            word = in.nextLine();
-
+            
             valido = v.valida(reader.getStates(), reader.getAlphabet(), reader.getInitialStates(), reader.getFinalStates(), reader.getTransitions(), word);
 
             if (valido) {
@@ -38,7 +39,9 @@ public class LFAAFNLamb {
             } else {
                 System.out.println("Não");
             }
-        }while(true);
+            
+            word = in.nextLine();
+        }
 
     }
 

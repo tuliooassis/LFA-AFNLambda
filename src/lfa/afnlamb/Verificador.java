@@ -44,7 +44,7 @@ public class Verificador {
                     ArrayList<String> p_finalStates, ArrayList<Aresta> p_transitions, String word){
         Scanner in = new Scanner(System.in);
         Estado atual;
-       //Adicionas na pilha de controle todos os estados iniciais
+       //Adiciona na pilha de controle todos os estados iniciais
         for (String s : p_initialStates) {
             atual = new Estado(s, word);
             if (!this.m_visited.contains(s)) {
@@ -56,7 +56,6 @@ public class Verificador {
             
             atual = this.m_control.pop();
             
-            //System.out.println ("Novo atual"+atual.getNome());
             this.m_visited.add(atual);
             
             
@@ -80,9 +79,6 @@ public class Verificador {
                 
                 if (a.getAtual().getNome().equals(atual.getNome())) {
                     if (a.getConsome().equals(atual.getWord().charAt(0) + "")||a.getConsome().equals("#")) {
-                     //   System.out.println("Atual"+a.getAtual().getNome() +" C="+ a.getConsome() +" P="+ a.getProximo().getNome());
-                        this.printVisited();
-                   //     System.out.println("Palavra:"+atual.getWord());
                         
                         Estado prox = new Estado (a.getProximo().getNome(), atual.getWord());
 
@@ -95,11 +91,7 @@ public class Verificador {
                         
                         if (!this.m_visited.contains(prox)){
                             this.m_control.add(prox);
-               //           in.nextLine();
                         }
-                        
-                    //    this.printControl();
-                   //     this.printVisited();
                     }
                 }
             }
