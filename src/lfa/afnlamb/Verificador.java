@@ -66,10 +66,7 @@ public class Verificador {
                         else
                             return false;
                        
-                
-                 
-                
-                if (atual.getWord().isEmpty() && p_finalStates.contains(atual.getNome()))
+                if ((atual.getWord().isEmpty() || atual.getWord().equals("#")) && p_finalStates.contains(atual.getNome()))
                     return true;
                 else if (atual.getWord().isEmpty())
                     break; 
@@ -84,7 +81,7 @@ public class Verificador {
 
                         if (!a.getConsome().equals("#")){
                             if (atual.getWord().length() == 1)
-                                prox.setWord("");
+                                prox.setWord("#");
                             else if (atual.getWord().length() > 1)
                                 prox.setWord(atual.getWord().substring(1));
                         }
@@ -95,7 +92,6 @@ public class Verificador {
                     }
                 }
             }
-
         }
 
         return false;
